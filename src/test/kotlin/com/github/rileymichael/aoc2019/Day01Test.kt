@@ -17,4 +17,15 @@ class Day01Test {
 
         assertEquals(expected, actual)
     }
-}
+
+    @ParameterizedTest
+    @CsvSource(
+        "14, 2",
+        "1969, 966",
+        "100756, 50346"
+    )
+    fun part2(input: Int, expected: Int) {
+        val actual = recursiveFuel(input)
+
+        assertEquals(expected, actual)
+    }}
