@@ -9,13 +9,24 @@ fun main() {
     // Part 1
     val part1 = part1(range)
     println("Part 1: $part1")
+
+    // Part 2
+    val part2 = part2(range)
+    println("Part 1: $part2")
 }
-
-
 
 fun part1(range: IntRange): Int {
     val filtered = range.filter { it.validateLength() }
-        .filter { it.validateAdjacent() }
+        .filter { it.validateAdjacent(2, false) }
+        .filter { it.validateIncrease() }
+        .distinct()
+
+    return filtered.size
+}
+
+fun part2(range: IntRange): Int {
+    val filtered = range.filter { it.validateLength() }
+        .filter { it.validateAdjacent(2, true) }
         .filter { it.validateIncrease() }
         .distinct()
 
@@ -27,15 +38,15 @@ fun Int.validateLength(): Boolean {
     return this.toString().length == 6
 }
 
-fun Int.validateAdjacent(): Boolean {
+fun Int.validateAdjacent(amount: Int, exact: Boolean): Boolean {
     val chars = this.toString().toCharArray()
-    var count = 0
-    chars.forEachIndexed { index, c ->
-        if (index != chars.size - 1 && c == chars[index + 1])
-            count++
+    var count = emptyMap<Char, Int>().toMutableMap().withDefault { 0 }
+
+    chars.forEach { c ->
+        count[c] = count.getValue(c).plus(1)
     }
 
-    return count >= 1
+    return count.filterValues { if (exact) it == amount else it >= amount }.isNotEmpty()
 }
 
 fun Int.validateIncrease(): Boolean {
