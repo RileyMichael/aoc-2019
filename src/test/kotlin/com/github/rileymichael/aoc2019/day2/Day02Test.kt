@@ -1,4 +1,4 @@
-package com.github.rileymichael.aoc2019
+package com.github.rileymichael.aoc2019.day2
 
 import org.junit.jupiter.api.*
 import org.junit.jupiter.params.*
@@ -11,7 +11,11 @@ class Day02Test {
         val inputList = input.split(',').map { it.toInt() }
         val expectedList = expected.split(',').map { it.toInt() }
 
-        val actual = run(inputList.toMutableList(), inputList[1], inputList[2])
+        val actual = run(
+            inputList.toMutableList(),
+            inputList[1],
+            inputList[2]
+        )
 
         Assertions.assertEquals(expectedList, actual)
     }

@@ -1,5 +1,6 @@
-package com.github.rileymichael.aoc2019
+package com.github.rileymichael.aoc2019.day1
 
+import com.github.rileymichael.aoc2019.*
 
 fun main() {
     val modules = readInput("day01").map { it.toInt() }

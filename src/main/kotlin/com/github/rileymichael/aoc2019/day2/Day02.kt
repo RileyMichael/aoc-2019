@@ -1,4 +1,6 @@
-package com.github.rileymichael.aoc2019
+package com.github.rileymichael.aoc2019.day2
+
+import com.github.rileymichael.aoc2019.*
 
 fun main() {
     val input = readInput("day02")

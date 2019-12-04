@@ -1,5 +1,6 @@
-package com.github.rileymichael.aoc2019
+package com.github.rileymichael.aoc2019.day1
 
+import com.github.rileymichael.aoc2019.day1.*
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.params.*
 import org.junit.jupiter.params.provider.*
