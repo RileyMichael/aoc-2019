@@ -3,7 +3,7 @@ package com.github.rileymichael.aoc2019.day2
 import com.github.rileymichael.aoc2019.*
 
 fun main() {
-    val input = readInput("day02")
+    val input = Utils.readInput("day02")
         .flatMap { it.split(',') }
         .map { it.toInt() }
 

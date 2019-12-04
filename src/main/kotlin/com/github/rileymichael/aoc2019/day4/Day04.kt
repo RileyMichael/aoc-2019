@@ -3,7 +3,7 @@ package com.github.rileymichael.aoc2019.day4
 import com.github.rileymichael.aoc2019.*
 
 fun main() {
-    val (start, end) = readInput("day04")[0].split('-').map { it.toInt() }
+    val (start, end) = Utils.readInput("day04")[0].split('-').map { it.toInt() }
     val range = IntRange(start, end)
 
     // Part 1

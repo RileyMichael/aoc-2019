@@ -3,7 +3,7 @@ package com.github.rileymichael.aoc2019.day1
 import com.github.rileymichael.aoc2019.*
 
 fun main() {
-    val modules = readInput("day01").map { it.toInt() }
+    val modules = Utils.readInput("day01").map { it.toInt() }
 
     // Part 1
     val part1 = modules.map { fuelRequired(it) }.sum()

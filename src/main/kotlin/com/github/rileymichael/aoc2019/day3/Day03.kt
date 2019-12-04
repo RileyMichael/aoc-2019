@@ -2,8 +2,9 @@ package com.github.rileymichael.aoc2019.day3
 
 import com.github.rileymichael.aoc2019.*
 
+
 fun main() {
-    val input = readInput("day03")
+    val input = Utils.readInput("day03")
     val wires = parseInput(input)
 
     // Part 1
