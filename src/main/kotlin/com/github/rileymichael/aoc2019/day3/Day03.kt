@@ -7,21 +7,40 @@ fun main() {
     val wires = parseInput(input)
 
     // Part 1
-    val min = part1(wires)
-    println("Part 1: $min")
+    val closest = part1(wires)
+    println("Part 1: $closest")
 
     // Part 2
+    val min = part2(wires)
+    println("Part 2: $min")
 }
+
+val origin = Point(0, 0)
+typealias Wire = List<Pair<Direction, Int>>
 
 fun part1(wires: List<Wire>): Int {
-    val center = Point(0,0)
-
     val points = wires.map { trace(it) }
 
-    return points[0].intersect(points[1]).map { it.distance(center) }.min()!!
+    return points[0].intersect(points[1]).map { it.distance(origin) }.min()!!
 }
 
-typealias Wire = List<Pair<Direction, Int>>
+fun part2(wires: List<Wire>): Int {
+    val points = wires.map { trace(it) }
+    val intersections = points[0].intersect(points[1])
+
+    val distances = points.map { list ->
+        list.mapIndexed { index, point ->
+            point to index + 1
+        }.filter {
+            intersections.contains(it.first)
+        }.asSequence()
+    }
+
+    return (distances[0] + distances[1])
+        .groupBy({ it.first }, { it.second })
+        .map { it.value.sum() }
+        .min()!!
+}
 
 fun parseInput(input: List<String>): List<Wire> {
     return input.map { wire ->
@@ -34,7 +53,7 @@ fun parseInput(input: List<String>): List<Wire> {
 fun trace(wire: Wire): List<Point> {
     val points = emptyList<Point>().toMutableList()
 
-    var position = Point(0, 0)
+    var position = origin.copy()
 
     wire.forEach { (direction, count) ->
         repeat(count) {
