@@ -1,49 +1,44 @@
 package com.github.rileymichael.aoc2019.day2
 
 import com.github.rileymichael.aoc2019.*
+import com.github.rileymichael.aoc2019.intcode.*
+import com.github.rileymichael.aoc2019.intcode.Computer.Companion.OUTPUT_ADDRESS
+import java.lang.IllegalArgumentException
 
 fun main() {
     val input = Utils.readInput("day02")
         .flatMap { it.split(',') }
         .map { it.toInt() }
 
-    // Part 1
-    val part1 = run(input.toMutableList(), 12, 2)
-    println("Part 1: ${part1[0]}")
 
-    // Part 2
-    val part2 = findSolution(input.toMutableList(), 19690720)
-    println("Part 2: ${100 * part2.first + part2.second}")
-}
+    Computer(input).run {
+        // Part 1
+        set(1, 12)
+        set(2, 2)
+        compute()
+        println("Part 1: " + get(OUTPUT_ADDRESS))
 
-fun run(list: MutableList<Int>, noun: Int, verb: Int): MutableList<Int> {
-    var p = 0
-    list[1] = noun
-    list[2] = verb
+        reset()
 
-    while (list[p] != 99) {
-        when (list[p]) {
-            1 -> {
-                list[list[p + 3]] = list[list[p + 1]] + list[list[p + 2]]
-            }
-            2 -> {
-                list[list[p + 3]] = list[list[p + 1]] * list[list[p + 2]]
-            }
-        }
-        p += 4
+        // Part 2
+        println("Part 2: " + findSolution(19690720))
     }
-    return list
 }
 
-
-fun findSolution(list: List<Int>, desired: Int): Pair<Int, Int> {
+fun Computer.findSolution(desired: Int): Int {
     for (noun in 0..99) {
         for (verb in 0..99) {
-            if (run(list.toMutableList(), noun, verb)[0] == desired) {
-                return Pair(noun, verb)
+            set(1, noun)
+            set(2, verb)
+            compute()
+
+            if (get(OUTPUT_ADDRESS) == desired) {
+                return 100 * noun + verb
             }
+
+            reset()
         }
     }
 
-    throw NoSuchElementException("Solution not found for desired value.")
+    throw IllegalArgumentException("Solution not found for $desired")
 }

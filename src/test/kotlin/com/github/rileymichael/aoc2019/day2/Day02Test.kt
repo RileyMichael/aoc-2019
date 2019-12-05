@@ -1,5 +1,6 @@
 package com.github.rileymichael.aoc2019.day2
 
+import com.github.rileymichael.aoc2019.intcode.*
 import org.junit.jupiter.api.*
 import org.junit.jupiter.params.*
 import org.junit.jupiter.params.provider.*
@@ -11,20 +12,17 @@ class Day02Test {
         val inputList = input.split(',').map { it.toInt() }
         val expectedList = expected.split(',').map { it.toInt() }
 
-        val actual = run(
-            inputList.toMutableList(),
-            inputList[1],
-            inputList[2]
-        )
-
-        Assertions.assertEquals(expectedList, actual)
+        Computer(inputList.toIntcode()).run {
+            compute()
+            val actual = memory
+            Assertions.assertEquals(expectedList, actual)
+        }
     }
 
     @Test
     fun part2() {
         // no example..
     }
-
 
     companion object {
         @JvmStatic
