@@ -6,23 +6,46 @@ abstract class Instruction(val size: Int) {
 
 object AddInstruction : Instruction(4) {
     override fun execute(computer: Computer) {
-        val a = computer.dereferenceParam(1)
-        val b = computer.dereferenceParam(2)
-        val outputAddress = computer.getParam(3)
+        computer.run {
+            val a = getParam(1)
+            val b = getParam(2)
+            val outputAddress = getOutputAddress(3)
 
-        computer.set(outputAddress, a + b)
+            set(outputAddress, a + b)
+        }
     }
 }
 
 object MultiplyInstruction : Instruction(4) {
     override fun execute(computer: Computer) {
-        val a = computer.dereferenceParam(1)
-        val b = computer.dereferenceParam(2)
-        val outputAddress = computer.getParam(3)
+        computer.run {
+            val a = getParam(1)
+            val b = getParam(2)
+            val outputAddress = getOutputAddress(3)
 
-        computer.set(outputAddress, a * b)
+            set(outputAddress, a * b)
+        }
     }
 }
+
+object InputInstruction : Instruction(2) {
+    override fun execute(computer: Computer) {
+        computer.run {
+            val outputAddress = getOutputAddress(1)
+            set(outputAddress, getAndIncrementInput())
+        }
+    }
+}
+
+object OutputInstruction : Instruction(2) {
+    override fun execute(computer: Computer) {
+        computer.run {
+            output.add(getParam(1))
+        }
+    }
+}
+
+
 
 object HaltInstruction : Instruction(1) {
     override fun execute(computer: Computer) {
