@@ -16,7 +16,7 @@ fun main() {
         set(1, 12)
         set(2, 2)
         compute()
-        println("Part 1: " + get(OUTPUT_ADDRESS))
+        println("Part 1: " + memory[OUTPUT_ADDRESS])
 
         reset()
 
@@ -32,7 +32,7 @@ fun Computer.findSolution(desired: Int): Int {
             set(2, verb)
             compute()
 
-            if (get(OUTPUT_ADDRESS) == desired) {
+            if (memory[OUTPUT_ADDRESS] == desired) {
                 return 100 * noun + verb
             }
 

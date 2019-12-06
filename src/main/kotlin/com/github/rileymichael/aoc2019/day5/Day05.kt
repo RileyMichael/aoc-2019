@@ -14,8 +14,13 @@ fun main() {
         input = listOf(1)
         compute()
         println("Part 1:")
-        println(output.joinToString())
+        println(output)
 
         reset()
+
+        input = listOf(5)
+        compute()
+        println("Part 2:")
+        println(output)
     }
 }

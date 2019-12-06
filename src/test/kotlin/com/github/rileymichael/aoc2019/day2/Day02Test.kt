@@ -19,7 +19,6 @@ class Day02Test {
         }
     }
 
-    @Test
     fun part2() {
         // no example..
     }
